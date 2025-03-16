@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>How Much is Your Mind Costing You? - Mobile</title>
-  <!-- Usamos la fuente Inter -->
+  <!-- Fuente Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
   <style>
-    /* Fondo de página blanco, texto principal en negro */
+    /* Fondo de página blanco, texto principal negro */
     body {
-      background-color: #F7F7F7;
+      background-color: #FFFFFF;
       font-family: 'Inter', sans-serif;
       color: #2E2E2E;
       display: flex;
@@ -22,8 +22,9 @@
     }
     .container {
       width: 90%;
-      max-width: 390px; /* Para un móvil de 390px, el contenedor se ajusta */
+      max-width: 390px; /* Para un móvil de 390px */
       padding: 10px;
+      margin: 0 auto;
     }
     .title {
       font-size: 20px;
@@ -34,30 +35,30 @@
       color: #444;
       margin-bottom: 30px;
     }
-    /* Recuadro del widget: ancho menor a 390, fondo negro, esquinas redondeadas */
+    /* Recuadro del widget: se deja espacio en los laterales */
     .typewriter-section {
       position: relative;
       display: inline-block;
-      background-color: #1c1c1c; /* Recuadro en negro */
-      border: 2px solid #000;
+      background-color: #FFFFFF; /* Fondo blanco */
+      border: 2px solid #000;      /* Borde negro */
       border-radius: 15px;
       padding: 20px;
       width: 100%;
-      max-width: 350px;  /* Un poco menos de 390px */
+      max-width: 350px;  /* Menos de 390px para dejar márgenes laterales */
       min-height: 120px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       margin: 0 auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     .typewriter-text {
       font-size: 16px;
-      color: #F7F7F7; /* Letras en el recuadro en color claro */
+      color: #2E2E2E;  /* Letras negras */
       outline: none;
     }
     .cursor {
       display: inline-block;
       width: 2px;
       height: 1.1em;
-      background-color: #F7F7F7;
+      background-color: #2E2E2E; /* Cursor negro */
       margin-left: 2px;
       animation: blink 0.7s infinite;
       vertical-align: bottom;
@@ -71,8 +72,8 @@
       position: absolute;
       bottom: 10px;
       right: 10px;
-      background-color: #F7F7F7;
-      color: #1c1c1c;
+      background-color: #2E2E2E;
+      color: #FFFFFF;
       border: none;
       border-radius: 15px;
       padding: 6px 12px;
@@ -82,7 +83,7 @@
       transition: background-color 0.2s ease;
     }
     .action-button:hover {
-      background-color: #e2e2e2;
+      background-color: #444;
     }
   </style>
 </head>
@@ -98,7 +99,7 @@
   </div>
   
   <script>
-    // Array de preguntas a rotar
+    // Frases a rotar (las preguntas)
     const phrases = [
       "How often do emotions influence your financial decisions?",
       "How much have you lost to emotional decisions in the past 6 months?",
@@ -112,12 +113,12 @@
     let isDeleting = false;
     let timeoutId;
     
-    const typingSpeed = 50;    // Milisegundos entre cada letra al escribir
-    const deletingSpeed = 20;  // Milisegundos entre cada letra al borrar
-    const pauseDelay = 1000;   // Milisegundos de pausa al terminar una frase
+    const typingSpeed = 50;    // ms entre cada letra al escribir
+    const deletingSpeed = 20;  // ms entre cada letra al borrar
+    const pauseDelay = 1000;   // ms de pausa al terminar una frase
     
     function type() {
-      // Si el usuario tiene el foco (está escribiendo), detenemos la animación
+      // Si el usuario tiene el foco en el campo editable, detén la animación
       if (document.activeElement === typewriterEl) return;
       
       const currentPhrase = phrases[phraseIndex];
@@ -144,10 +145,10 @@
     
     document.addEventListener("DOMContentLoaded", () => { setTimeout(type, 500); });
     
-    // Al hacer foco, se detiene la animación para que el usuario pueda escribir
+    // Detener la animación cuando el usuario hace foco en el recuadro
     typewriterEl.addEventListener("focus", () => { clearTimeout(timeoutId); });
     
-    // Al perder el foco, se reinicia la animación (se borra el contenido y se pasa a la siguiente frase)
+    // Reiniciar la animación al perder el foco
     typewriterEl.addEventListener("blur", () => {
       typewriterEl.textContent = "";
       charIndex = 0;
