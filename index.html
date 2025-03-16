@@ -3,23 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>How Much is Your Mind Costing You? - Mobile</title>
+  <!-- Usamos la fuente Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
   <style>
+    /* Fondo de página blanco, texto principal en negro */
     body {
-      background-color: #1c1c1c;
+      background-color: #F7F7F7;
       font-family: 'Inter', sans-serif;
-      color: #fff;
+      color: #2E2E2E;
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0;
       padding: 20px;
-      height: 100vh;
+      min-height: 100vh;
       text-align: center;
     }
     .container {
       width: 90%;
+      max-width: 390px; /* Para un móvil de 390px, el contenedor se ajusta */
       padding: 10px;
     }
     .title {
@@ -28,23 +31,26 @@
     }
     .subtitle {
       font-size: 15px;
-      color: #ccc;
+      color: #444;
       margin-bottom: 30px;
     }
+    /* Recuadro del widget: ancho menor a 390, fondo negro, esquinas redondeadas */
     .typewriter-section {
       position: relative;
       display: inline-block;
-      background-color: #1c1c1c;
-      border: 2px solid #444;
+      background-color: #1c1c1c; /* Recuadro en negro */
+      border: 2px solid #000;
       border-radius: 15px;
       padding: 20px;
       width: 100%;
+      max-width: 350px;  /* Un poco menos de 390px */
       min-height: 120px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      margin: 0 auto;
     }
     .typewriter-text {
       font-size: 16px;
-      color: #F7F7F7;
+      color: #F7F7F7; /* Letras en el recuadro en color claro */
       outline: none;
     }
     .cursor {
@@ -60,6 +66,7 @@
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
     }
+    /* Botón "Send" en la esquina inferior derecha del recuadro */
     .action-button {
       position: absolute;
       bottom: 10px;
@@ -71,7 +78,7 @@
       padding: 6px 12px;
       font-size: 0.8rem;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       transition: background-color 0.2s ease;
     }
     .action-button:hover {
@@ -91,23 +98,30 @@
   </div>
   
   <script>
+    // Array de preguntas a rotar
     const phrases = [
       "How often do emotions influence your financial decisions?",
       "How much have you lost to emotional decisions in the past 6 months?",
       "How much time do you spend analyzing your emotions weekly?",
       "How confident are you in your financial decisions?"
     ];
+    
     const typewriterEl = document.getElementById("typewriter");
     let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
     let timeoutId;
-    const typingSpeed = 50;
-    const deletingSpeed = 20;
-    const pauseDelay = 1000;
+    
+    const typingSpeed = 50;    // Milisegundos entre cada letra al escribir
+    const deletingSpeed = 20;  // Milisegundos entre cada letra al borrar
+    const pauseDelay = 1000;   // Milisegundos de pausa al terminar una frase
+    
     function type() {
+      // Si el usuario tiene el foco (está escribiendo), detenemos la animación
       if (document.activeElement === typewriterEl) return;
+      
       const currentPhrase = phrases[phraseIndex];
+      
       if (!isDeleting) {
         typewriterEl.textContent = currentPhrase.substring(0, charIndex + 1);
         charIndex++;
@@ -123,11 +137,17 @@
           phraseIndex = (phraseIndex + 1) % phrases.length;
         }
       }
+      
       const delay = isDeleting ? deletingSpeed : typingSpeed;
       timeoutId = setTimeout(type, delay);
     }
+    
     document.addEventListener("DOMContentLoaded", () => { setTimeout(type, 500); });
+    
+    // Al hacer foco, se detiene la animación para que el usuario pueda escribir
     typewriterEl.addEventListener("focus", () => { clearTimeout(timeoutId); });
+    
+    // Al perder el foco, se reinicia la animación (se borra el contenido y se pasa a la siguiente frase)
     typewriterEl.addEventListener("blur", () => {
       typewriterEl.textContent = "";
       charIndex = 0;
@@ -135,6 +155,8 @@
       phraseIndex = (phraseIndex + 1) % phrases.length;
       setTimeout(type, 500);
     });
+    
+    // Acción del botón "Send"
     document.getElementById("actionButton").addEventListener("click", () => {
       alert("Button clicked! Implement your functionality here.");
     });
